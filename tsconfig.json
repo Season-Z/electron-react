@@ -1,0 +1,57 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "baseUrl": "./",
+    "strict": true,
+    "allowJs": true,
+    "target": "ES6",
+    "module": "commonjs",
+    "lib": [
+        "es6",
+        "dom"
+    ],
+    "noEmit": true,
+    "rootDir": "src",
+    "experimentalDecorators": true,
+    "paths": {
+      "@/*": [
+        "src/render/*"
+      ],
+      "@@/*": [
+        "src/render/.umi/*"
+      ],
+      "@config/*": [
+        "src/render/config/*"
+      ],
+      "@components/*": [
+        "src/render/components/*"
+      ],
+      "@utils/*": [
+        "src/render/utils/*"
+      ],
+      "@typings/*": [
+        "typings/*"
+      ],
+      "@pages/*": [
+        "src/render/pages/*"
+      ],
+      "@hooks/*": [
+        "src/render/hooks/*"
+      ]
+    },
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./src"
+  ],
+  "typeAcquisition": {
+    "enable": true
+  },
+}

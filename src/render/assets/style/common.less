@@ -1,0 +1,312 @@
+/**
+ * 这里写全局公共样式
+ */
+@commonColor: #a14eff;
+@commonBgColor: #eff0fa;
+
+// wrap
+.commonWrap {
+  width: 100%;
+  height: 100%;
+}
+
+.layout-content {
+  padding: 0 0 24px 0;
+  margin: 0px;
+  height: 100%;
+}
+
+.layout-content-withTab {
+  padding: 24px 0;
+  margin: 0px;
+  height: 100%;
+}
+
+.ant-layout {
+  background: @commonBgColor !important;
+}
+
+// settlement
+.settlement {
+  background: @commonBgColor;
+}
+
+// other
+.mid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.status2 {
+  padding: 5px 10px;
+  background-color: #1890ff;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.bsp {
+  background-color: #1890ff;
+  color: #fff;
+  padding: 4px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.totalNumber {
+  background: #e6f2ff;
+  margin-top: 20px;
+  border: 1px solid #b3e4ff;
+  border-radius: 5px;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 20px;
+}
+
+.mRight10 {
+  margin-right: 10px;
+}
+
+.mRight5 {
+  margin-right: 5px;
+}
+
+.mTop16 {
+  margin-top: 16px;
+}
+
+.mBottom16 {
+  margin-bottom: 16px;
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.mRight16 {
+  margin-right: 16px;
+}
+
+.mLeft16 {
+  margin-left: 16px;
+}
+
+// 单行省略号
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wrapFormStyle {
+  padding: 16px 16px 10px;
+  background-color: #ffffff;
+}
+
+.wrapStyle {
+  padding: 0px 16px 0px 16px; //  16px 16px 10px;
+  background-color: #ffffff;
+  // border-radius: 10px;
+  margin: 0 12px;
+}
+
+// 组件通用
+.commonHandleBack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+
+  button:nth-of-type(1) {
+    margin-right: 20px;
+  }
+
+  button {
+    width: 110px;
+    height: 40px;
+  }
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// 带左侧标识的 title
+@color-pirmary: #a14eff;
+
+.note-title {
+  position: relative;
+  padding-left: 12px;
+  line-height: 44px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #474245;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 2px;
+    height: 14px;
+    background-color: @color-pirmary;
+    transform: translateY(-50%);
+  }
+}
+
+.note-title-border {
+  .note-title;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background-color: #f3f3f3;
+  }
+}
+
+.optionBtnList {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0px 0px 10px 0;
+
+  & > li > button {
+    margin-right: 15px;
+  }
+}
+
+// .commonWrap {
+//   .wrapStyle:nth-of-type(2) {
+//     min-height: 480px;
+//   }
+// }
+
+.detailContent {
+  padding: 0 20px 20px 20px;
+  background-color: #fff;
+  height: auto;
+}
+
+.detailContent-s {
+  padding: 0 20px 20px 20px;
+  background-color: #fff;
+}
+
+.btnOpts {
+  & > * {
+    margin-left: 8px;
+  }
+}
+
+.complexInput {
+  display: flex !important;
+
+  .complexBtn {
+    border-radius: 0 6px 6px 0 !important;
+  }
+}
+
+.full-height {
+  min-height: 100%;
+}
+
+.column-flex {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  // padding-bottom: 16px;
+
+  .full-rest {
+    flex: 1;
+  }
+}
+
+.min100-16px {
+  min-height: calc(100% - 16px);
+}
+
+.ant-table-content {
+  overflow: scroll hidden;
+}
+.ant-modal-content {
+  min-height: 100%;
+}
+
+.lommonWrap-list {
+  tr {
+    height: 50px;
+  }
+}
+
+.CommonWrap-list {
+  tr {
+    height: 50px;
+  }
+}
+
+.sList {
+  .ant-table-thead > tr > .ant-table-cell {
+    background: rgba(239, 240, 250, 1) !important;
+    border-radius: 0 !important;
+  }
+  tr {
+    height: 50px;
+  }
+  .ant-table-cell-fix-right a {
+    font-size: 13px;
+    margin-right: 5px;
+  }
+}
+
+.ant-table-body {
+  tfoot > tr > td {
+    position: sticky !important;
+    background-color: #fff;
+    bottom: 0;
+  }
+  tfoot > tr {
+    background: #fff;
+  }
+}
+
+.pBottom16 {
+  padding-bottom: 16px;
+}
+
+// 底部固定
+.bottom-fixed {
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 200px; //216
+  z-index: 1000;
+  width: 100%;
+  height: 40px;
+  box-shadow: 0px -5px 10px -5px rgba(13, 11, 16, 0.24);
+
+  .bottom-fixed-button {
+    width: 80px;
+    height: 30px;
+    margin-left: 20px;
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 50px;
+}
+
+.descWrapper {
+  background-color: #fbfbfb;
+  padding: 18px 18px 0;
+}
