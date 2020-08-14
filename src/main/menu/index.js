@@ -2,19 +2,10 @@
  * 菜单
  */
 const electron = require('electron')
-// const url = require('url')
-// const path = require('path')
 const BrowserWindow = electron.BrowserWindow
 const Menu = electron.Menu
 const app = electron.app
 const shell = electron.shell
-const Store = require('electron-store')
-const { ACLAS_ADDONS, ADDONS_TYPE } = require('../addons/aclas-sdk')
-
-const store = new Store()
-
-// const pkg = require(path.resolve(global.__dirname, 'package.json'))
-// const build = pkg['build-config']
 
 let template = [
   {
@@ -23,11 +14,11 @@ let template = [
       {
         label: '刷新',
         accelerator: 'CmdOrCtrl+R',
-        click: function(item, focusedWindow) {
+        click: function (item, focusedWindow) {
           if (focusedWindow) {
             // 重载之后, 刷新并关闭所有的次要窗体
             if (focusedWindow.id === 1) {
-              BrowserWindow.getAllWindows().forEach(function(win) {
+              BrowserWindow.getAllWindows().forEach(function (win) {
                 if (win.id > 1) {
                   win.close()
                 }
@@ -39,14 +30,14 @@ let template = [
       },
       {
         label: '切换全屏',
-        accelerator: (function() {
+        accelerator: (function () {
           if (process.platform === 'darwin') {
             return 'Ctrl+Command+F'
           } else {
             return 'F11'
           }
         })(),
-        click: function(item, focusedWindow) {
+        click: function (item, focusedWindow) {
           if (focusedWindow) {
             focusedWindow.setFullScreen(!focusedWindow.isFullScreen())
           }
@@ -54,31 +45,31 @@ let template = [
       },
       {
         label: '开发者工具',
-        accelerator: (function() {
+        accelerator: (function () {
           if (process.platform === 'darwin') {
             return 'Alt+Command+I'
           } else {
             return 'Ctrl+Shift+I'
           }
         })(),
-        click: function(item, focusedWindow) {
+        click: function (item, focusedWindow) {
           if (focusedWindow) {
             focusedWindow.toggleDevTools()
           }
         }
       },
-      {
-        label: `电子秤-普通模式`,
-        click: () => {
-          store.set(ACLAS_ADDONS, ADDONS_TYPE.cpp)
-        },
-      },
-      {
-        label: `电子秤-兼容模式`,
-        click: () => {
-          store.set(ACLAS_ADDONS, ADDONS_TYPE.csharp)
-        },
-      },
+      // {
+      //   label: `电子秤-普通模式`,
+      //   click: () => {
+      //     store.set(ACLAS_ADDONS, ADDONS_TYPE.cpp)
+      //   },
+      // },
+      // {
+      //   label: `电子秤-兼容模式`,
+      //   click: () => {
+      //     store.set(ACLAS_ADDONS, ADDONS_TYPE.csharp)
+      //   },
+      // },
       {
         label: '下载最新安装包',
         click: () => {
@@ -87,14 +78,14 @@ let template = [
       },
       {
         label: '退出',
-        accelerator: (function() {
+        accelerator: (function () {
           if (process.platform === 'darwin') {
             return 'Alt+Command+Q'
           } else {
             return 'Ctrl+Q'
           }
         })(),
-        click: function() {
+        click: function () {
           app.quit()
         }
       }
@@ -213,7 +204,7 @@ let template = [
 //   addUpdateMenuItems(helpMenu, 0)
 // }
 
-app.on('ready', function() {
+app.on('ready', function () {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 })

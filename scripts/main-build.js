@@ -14,7 +14,7 @@ require('dotenv').config({ path: path.join(__dirname, '../src/render/.env') });
 
 const { env, port = process.env.PORT, watch } = argv;
 const electron = connect.server.create({
-  port: 9099,
+  port: 9999,
   stopOnClose: true,
 });
 const spinner = ora('Electron webpack build...');

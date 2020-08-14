@@ -31,13 +31,6 @@ module.exports = function (env) {
           test: /\.js$/,
           exclude: /node-modules/
         },
-        {
-          test: /\.node$/,
-          loader: isDev ? 'node-loader' : 'relative-loader',
-          options: isDev ? undefined : {
-            relativePath: '/addons/'
-          }
-        },
       ]
     }
   };

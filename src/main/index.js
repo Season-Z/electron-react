@@ -78,11 +78,10 @@ class MainApp {
     ipcMain.on('toggle-devtool', () => {
       this.mainWindow.webContents.toggleDevTools()
     })
-    ipcMain.on('dispatch-dzc', this.dispatchDZC)
     // 新版electron在win7下的打印无效，已废弃，使用lodop
     // Clodop打印初始化，建立ipc连接，接送通知等待执行控件安装
     if (process.platform === 'win32') {
-      ipcMain.on('execClodop', (event, obj) => {
+      ipcMain.on('execClodop', () => {
         console.log('initPrint execClodop')
         AppHelper.execClodop()
           .then(e => {
@@ -128,7 +127,7 @@ class MainApp {
     if (!gotTheLock) {
       app.quit()
     } else {
-      app.on('second-instance', (event, commandLine, workingDirectory) => {
+      app.on('second-instance', () => {
         // 当运行第二个实例时,将会聚焦到mainWindow这个窗口
         if (this.mainWindow) {
           if (this.mainWindow.isMinimized()) this.mainWindow.restore()
@@ -137,24 +136,6 @@ class MainApp {
         }
       })
     }
-  }
-  // 下发电子称
-  dispatchDZC(event, { type, host, file_path, dll_path }) {
-    const sdk = require('./addons/aclas-sdk')
-    sdk.runTask(
-      {
-        type: type === 'plu' ? 0x0000 : 0x0011, // PLU、条码
-        filename: file_path,
-        dll_path,
-        host
-      },
-      function (json) {
-        if (electronDev) {
-          console.log(json)
-        }
-        event.sender.send('dispatch-dzc', json)
-      }
-    )
   }
 
 }

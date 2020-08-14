@@ -7,11 +7,6 @@ const routes = [
     component: '@/layouts/index.tsx',
     routes: [
       {
-        path: '/Reservation/Detail',
-        exact: true,
-        component: '@/pages/Reservation/Detail/index.tsx'
-      },
-      {
         path: '/Reservation/Search',
         exact: true,
         component: '@/pages/Reservation/Search/index.tsx'

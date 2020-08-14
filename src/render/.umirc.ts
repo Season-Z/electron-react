@@ -18,14 +18,14 @@ try {
    */
   const conf = fs.readFileSync(path.join(__dirname, '_env'), 'utf-8')
   devtool = dotenv.parse(conf).devtool
-} catch (error) { }
+} catch (error) {}
 
 const webpack = {
   dev: config => {
     config
       .devtool(devtool)
       .target('electron-renderer')
-      .module.rule('node-addons')
+      .module.rule('electron-base')
       .test(/\.node$/)
       .use('node-loader')
       .loader('node-loader')
@@ -45,13 +45,13 @@ const webpack = {
     config
       .devtool('cheap-module-source-map')
       .target('electron-renderer')
-      .module.rule('node-addons')
+      .module.rule('electron-base')
       .test(/\.node$/)
       .use('relative-loader')
       .loader('relative-loader')
-      .options({
-        relativePath: '/addons/'
-      })
+    // .options({
+    //   relativePath: '/addons/'
+    // })
     config.node.set('__dirname', false).set('__filename', false)
     return config
   },
@@ -72,8 +72,8 @@ const chainWebpack = config =>
       ? webpack.prod_web(config)
       : webpack.prod(config)
     : isWeb
-      ? webpack.dev_web(config)
-      : webpack.dev(config)
+    ? webpack.dev_web(config)
+    : webpack.dev(config)
 
 export default {
   chainWebpack,
@@ -115,19 +115,17 @@ export default {
     NODE_ENV: process.env.NODE_ENV,
     YPSHOP_ENV: process.env.YPSHOP_ENV,
     TARGET: process.env.TARGET,
-    RENDER__DIR: __dirname,
+    RENDER__DIR: __dirname
   },
   // 本地热加载走写死路由，提高速度，命令行添加参数才有效
   routes: closeFlexRoute ? routes : undefined,
   // 拷贝一些静态文件
-  copy: [
-    'utils/aclas-addons/static',
-  ],
+  // copy: ['utils/aclas-addons/static'],
   terserOptions: {
     compress: {
       // 去掉 console.log
       // drop_console: true,
       // pure_funcs: ['console.log'],
-    },
-  },
+    }
+  }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 // 'use strict'
 if (typeof window === 'undefined') {
   throw new Error('Geetest requires browser environment')
@@ -12,7 +13,7 @@ function _Object(obj) {
 }
 
 _Object.prototype = {
-  _each: function(process) {
+  _each: function (process) {
     var _obj = this._obj
     for (var k in _obj) {
       if (_obj.hasOwnProperty(k)) {
@@ -25,7 +26,7 @@ _Object.prototype = {
 
 function Config(config) {
   var self = this
-  new _Object(config)._each(function(key, value) {
+  new _Object(config)._each(function (key, value) {
     self[key] = value
   })
 }
@@ -46,7 +47,7 @@ Config.prototype = {
       fullpage: '/static/js/fullpage.0.0.0.js'
     }
   },
-  _get_fallback_config: function() {
+  _get_fallback_config: function () {
     var self = this
     if (isString(self.type)) {
       return self.fallback_config[self.type]
@@ -56,26 +57,26 @@ Config.prototype = {
       return self.fallback_config.slide
     }
   },
-  _extend: function(obj) {
+  _extend: function (obj) {
     var self = this
-    new _Object(obj)._each(function(key, value) {
+    new _Object(obj)._each(function (key, value) {
       self[key] = value
     })
   }
 }
-var isNumber = function(value) {
+var isNumber = function (value) {
   return typeof value === 'number'
 }
-var isString = function(value) {
+var isString = function (value) {
   return typeof value === 'string'
 }
-var isBoolean = function(value) {
+var isBoolean = function (value) {
   return typeof value === 'boolean'
 }
-var isObject = function(value) {
+var isObject = function (value) {
   return typeof value === 'object' && value !== null
 }
-var isFunction = function(value) {
+var isFunction = function (value) {
   return typeof value === 'function'
 }
 var MOBILE = /Mobi/i.test(navigator.userAgent)
@@ -84,7 +85,7 @@ var pt = MOBILE ? 3 : 0
 var callbacks = {}
 var status = {}
 
-var nowDate = function() {
+var nowDate = function () {
   var date = new Date()
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -112,26 +113,26 @@ var nowDate = function() {
   return currentdate
 }
 
-var random = function() {
+var random = function () {
   return parseInt(Math.random() * 10000) + new Date().valueOf()
 }
 
-var loadScript = function(url, cb) {
+var loadScript = function (url, cb) {
   var script = document.createElement('script')
   script.charset = 'UTF-8'
   script.async = true
 
-  script.onerror = function() {
+  script.onerror = function () {
     cb(true)
   }
   var loaded = false
-  script.onload = script.onreadystatechange = function() {
+  script.onload = script.onreadystatechange = function () {
     if (
       !loaded &&
       (!script.readyState || script.readyState === 'loaded' || script.readyState === 'complete')
     ) {
       loaded = true
-      setTimeout(function() {
+      setTimeout(function () {
         cb(false)
       }, 0)
     }
@@ -140,24 +141,24 @@ var loadScript = function(url, cb) {
   head.appendChild(script)
 }
 
-var normalizeDomain = function(domain) {
+var normalizeDomain = function (domain) {
   // special domain: uems.sysu.edu.cn/jwxt/geetest/
   // return domain.replace(/^https?:\/\/|\/.*$/g, ''); uems.sysu.edu.cn
   return domain.replace(/^https?:\/\/|\/$/g, '') // uems.sysu.edu.cn/jwxt/geetest
 }
-var normalizePath = function(path) {
+var normalizePath = function (path) {
   path = path.replace(/\/+/g, '/')
   if (path.indexOf('/') !== 0) {
     path = '/' + path
   }
   return path
 }
-var normalizeQuery = function(query) {
+var normalizeQuery = function (query) {
   if (!query) {
     return ''
   }
   var q = '?'
-  new _Object(query)._each(function(key, value) {
+  new _Object(query)._each(function (key, value) {
     if (isString(value) || isNumber(value) || isBoolean(value)) {
       q = q + encodeURIComponent(key) + '=' + encodeURIComponent(value) + '&'
     }
@@ -167,7 +168,7 @@ var normalizeQuery = function(query) {
   }
   return q.replace(/&$/, '')
 }
-var makeURL = function(protocol, domain, path, query) {
+var makeURL = function (protocol, domain, path, query) {
   domain = normalizeDomain(domain)
 
   var url = normalizePath(path) + normalizeQuery(query)
@@ -178,10 +179,10 @@ var makeURL = function(protocol, domain, path, query) {
   return url
 }
 
-var load = function(config, send, protocol, domains, path, query, cb) {
-  var tryRequest = function(at) {
+var load = function (config, send, protocol, domains, path, query, cb) {
+  var tryRequest = function (at) {
     var url = makeURL(protocol, domains[at], path, query)
-    loadScript(url, function(err) {
+    loadScript(url, function (err) {
       if (err) {
         if (at >= domains.length - 1) {
           cb(true)
@@ -202,7 +203,7 @@ var load = function(config, send, protocol, domains, path, query, cb) {
   tryRequest(0)
 }
 
-var jsonp = function(domains, path, config, callback) {
+var jsonp = function (domains, path, config, callback) {
   if (isObject(config.getLib)) {
     config._extend(config.getLib)
     callback(config)
@@ -214,7 +215,7 @@ var jsonp = function(domains, path, config, callback) {
   }
 
   var cb = 'geetest_' + random()
-  window[cb] = function(data) {
+  window[cb] = function (data) {
     if (data.status == 'success') {
       callback(data.data)
     } else if (!data.status) {
@@ -225,7 +226,7 @@ var jsonp = function(domains, path, config, callback) {
     window[cb] = undefined
     try {
       delete window[cb]
-    } catch (e) {}
+    } catch (e) { }
   }
   load(
     config,
@@ -237,7 +238,7 @@ var jsonp = function(domains, path, config, callback) {
       gt: config.gt,
       callback: cb
     },
-    function(err) {
+    function (err) {
       if (err) {
         callback(config._get_fallback_config())
       }
@@ -245,7 +246,7 @@ var jsonp = function(domains, path, config, callback) {
   )
 }
 
-var reportError = function(config, url) {
+var reportError = function (config, url) {
   load(
     config,
     false,
@@ -260,11 +261,11 @@ var reportError = function(config, url) {
       exception_url: url,
       error_code: config.error_code
     },
-    function(err) {}
+    function (err) { }
   )
 }
 
-var throwError = function(errorType, config) {
+var throwError = function (errorType, config) {
   var errors = {
     networkError: '缃戠粶閿欒',
     gtTypeError: 'gt瀛楁涓嶆槸瀛楃涓茬被鍨�'
@@ -276,7 +277,7 @@ var throwError = function(errorType, config) {
   }
 }
 
-var detect = function() {
+var detect = function () {
   return window.Geetest || document.getElementById('gt_lib')
 }
 
@@ -305,9 +306,9 @@ function initGeetest(userConfig, callback) {
   if (isObject(userConfig.getType)) {
     config._extend(userConfig.getType)
   }
-  jsonp([config.api_server || config.apiserver], config.typePath, config, function(newConfig) {
+  jsonp([config.api_server || config.apiserver], config.typePath, config, function (newConfig) {
     var type = newConfig.type
-    var init = function() {
+    var init = function () {
       config._extend(newConfig)
       callback(new window.Geetest(config))
     }
@@ -326,7 +327,7 @@ function initGeetest(userConfig, callback) {
         newConfig.static_servers || newConfig.domains,
         newConfig[type] || newConfig.path,
         null,
-        function(err) {
+        function (err) {
           if (err) {
             status[type] = 'fail'
             throwError('networkError', config)

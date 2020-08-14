@@ -1,10 +1,3 @@
-/** 当前选中门店 */
-export const SHOP_CURRENT = '@shop/current'
-/** 切换门店 */
-export const EVENT_SHOP_SWITCH = '@event/shop-switch'
-/** 广播 shop.id */
-export const EVENT_SHOP_ID = '@event/shop-id'
-
 /** 退出登陆 */
 export const LOGOUT = 'logout'
 

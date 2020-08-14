@@ -47,7 +47,7 @@ function download(url, params, iframe, name) {
   }
 }
 
-export default function(urls, params, newNames) {
+export default function (urls, params, newNames) {
   let iframe
   if ((typeof urls).toLowerCase() === 'string') {
     iframe = getDownloadIframe()
@@ -58,8 +58,8 @@ export default function(urls, params, newNames) {
     urls.forEach(url => {
       iframe = getMultiDownloadIframe(k)
       setTimeout(
-        (function(url, params, iframe, newNames) {
-          return function() {
+        (function (url, params, iframe, newNames) {
+          return function () {
             download(url, params, iframe, newNames)
           }
         })(url, params, iframe, newNames[k]),
