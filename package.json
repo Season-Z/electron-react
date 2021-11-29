@@ -1,14 +1,12 @@
 {
-  "name": "ypshop-app",
-  "description": "{{description}}",
-  "author": "YPSX",
-  "version": "1.2.5",
+  "name": "electron-react",
+  "description": "基于electron的react项目",
+  "author": "season",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "npm run dev:all",
     "dev:all": "concurrently -n=umi,electron -c=blue,green \"cross-env YPSHOP_ENV=sit APP_ROOT=src/render umi dev\" \"npm run electron:dev\"",
-    "---- 构建 render 进程到指定目录 ----": "---- DIST=dist 指向根目录 dist ----",
-    "umi:build": "cross-env DIST=dist YPSHOP_ENV=sit APP_ROOT=src/render umi build",
     "---- close flex routes ----": "---- 开发关闭动态路由，可选 ----",
     "flex": "concurrently -n=umi,electron -c=blue,green \"cross-env closeFlexRoute=true APP_ROOT=src/render umi dev\" \"npm run electron:dev\"",
     "---- webpack 构建 bundle.js electron-webpack ----": "---- webpack 构建 bundle.js ----",
