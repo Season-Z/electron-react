@@ -1,10 +1,3 @@
-/* const fabric = require('@umijs/fabric');
-module.exports = {
-  ...fabric.prettier,
-};
- */
-
-// .prettierrc.js
 module.exports = {
   // 一行最多 100 字符
   printWidth: 100,

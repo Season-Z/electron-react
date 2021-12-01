@@ -1,46 +1,31 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/npm-debug.log*
-/yarn-error.log
-/yarn.lock
-yarn.lock
-package-lock.json
-# /yarn.lock
-# /package-lock.json
-
-# production
-**/dist
-
-# misc
 .DS_Store
-.idea
-.vscode
-.svn
-.git
-# .npmrc
-# .yarnrc
-
-# umi
-.umi
-.umi-production
-
-# 一些临时文件
-**/.tmp
-**/tmp
-**/.umi
-
-# Electron 构建文件
+.history
+node_modules
+dist
 release
-src/main/bundle.js
-src/main/bundle.js.map
-src/render/_env
-web
-**/test
+build/build-dist
 
-winCodeSign-2.6.0
-wine-4.0.1-mac
-.log
+# local env files
+.env.local
+.env.*.local
 
-.gitlab-ci.yml
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+#.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*-bak.*
+
+.tmp
+.settings
+.project
+*.log
+*.dat
