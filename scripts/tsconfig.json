@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "strictNullChecks": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+
+    // Node 当前还没有支持直接运行 import/export 语法, 需要编译到 CommonJS
+    "module": "commonjs",
+
+    "target": "es2016",
+    "jsx": "react",
+    "lib": ["es2016"],
+    "types": ["node"],
+    "baseUrl": "."
+  },
+  "include": ["../types/global.d.ts"]
+}
