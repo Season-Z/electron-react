@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import electron from 'electron'
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
-import { exConsole } from './utils'
+import { appLog } from './utils'
 
 export default class ElectronProcess {
   public process: ChildProcessWithoutNullStreams | undefined
@@ -15,16 +15,16 @@ export default class ElectronProcess {
    */
   start(): void {
     if (this.isRestart) {
-      exConsole.info('Electron main process is restarting...')
+      appLog.info('Electron main process is restarting...')
       if (this.process && this.process.pid) {
         try {
           process.kill(this.process.pid)
           this.process = undefined
         } catch (error) {
-          exConsole.warn(error as unknown as string)
+          appLog.warn(error as unknown as string)
         }
       } else {
-        exConsole.warn('Failed to restart: Main process does not exist.')
+        appLog.warn('Failed to restart: Main process does not exist.')
       }
     }
 
@@ -45,17 +45,17 @@ export default class ElectronProcess {
     this.process = spawn(electron, ['.'])
     this.restarting = false
     if (this.process) {
-      exConsole.success(`Electron main process has ${this.isRestart ? 'restarted' : 'started'}.`)
+      appLog.success(`Electron main process has ${this.isRestart ? 'restarted' : 'started'}.`)
 
       this.process.stdout.on('data', (data) => {
         let message: string = data.toString()
 
         if (message.length < 10 && (!message || !message.replace(/\s/g, '')))
           message = chalk.gray('null')
-        exConsole.info(message)
+        appLog.info(message)
       })
       this.process.stderr.on('data', (data) => {
-        exConsole.error(data)
+        appLog.error(data)
       })
       this.process.on('close', () => {
         if (!this.restarting) {
@@ -64,7 +64,7 @@ export default class ElectronProcess {
         }
       })
     } else {
-      return exConsole.error('Electron start error!')
+      return appLog.error('Electron start error!')
     }
   }
 

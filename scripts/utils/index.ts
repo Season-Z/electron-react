@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import { exConsole } from './console'
+import { appLog } from './console'
 export * from './console'
 
 /**
@@ -12,8 +12,13 @@ export * from './console'
  * @param {Boolean} createDir 如果不存在,是否创建
  * @param {Boolean} log 是否输出日志
  */
-export function clearDir(pathStr?: string, delDir?: boolean, createDir?: boolean, log?: boolean): void {
-  if (!pathStr) return exConsole.warn('[clearDir]: Empty Path!')
+export function clearDir(
+  pathStr?: string,
+  delDir?: boolean,
+  createDir?: boolean,
+  log?: boolean
+): void {
+  if (!pathStr) return appLog.warn('[clearDir]: Empty Path!')
   let files = []
 
   if (fs.existsSync(pathStr)) {
@@ -23,10 +28,10 @@ export function clearDir(pathStr?: string, delDir?: boolean, createDir?: boolean
 
       if (fs.statSync(curPath).isDirectory()) {
         clearDir(curPath, true)
-        if (log) exConsole.success(`[delete dir]: ${curPath}`)
+        if (log) appLog.success(`[delete dir]: ${curPath}`)
       } else {
         fs.unlinkSync(curPath)
-        if (log) exConsole.success(`[delete file]: ${curPath}`)
+        if (log) appLog.success(`[delete file]: ${curPath}`)
       }
     })
 
