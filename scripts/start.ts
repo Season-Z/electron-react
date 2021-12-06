@@ -44,17 +44,18 @@ function startMainServer() {
 
 // 渲染进程
 function startRendererServer() {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     const compiler = webpack(webpackDevConfig as any)
     // @ts-ignore
     const server = new WebpackDevServer(serverConfig, compiler)
 
-    server.startCallback(() => {
-      console.log(
-        chalk.green(`Successfully started server on http://${SERVER_HOST}:${SERVER_PORT}`)
-      )
+    try {
+      await server.start()
       resolve(undefined)
-    })
+    } catch (error) {
+      console.log(chalk.red(error))
+      reject(error)
+    }
   })
 }
 

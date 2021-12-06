@@ -18,5 +18,6 @@
     "types": ["node"],
     "baseUrl": "."
   },
-  "include": ["../types/global.d.ts"]
+  "include": ["./**/*.ts", "./*.ts"],
+  "exclude": ["node_modules"]
 }

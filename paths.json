@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": "app",
+    "paths": {
+      "*": ["app/*"],
+      "@main/*": ["electron/*"],
+      "@renderer/*": ["renderer/*"],
+      "@router/*": ["renderer/router"]
+    }
+  }
+}

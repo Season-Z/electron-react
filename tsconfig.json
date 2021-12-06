@@ -15,10 +15,9 @@
     "resolveJsonModule": true, // 支持导入 json 模块
     "baseUrl": "./", // 根路径
     "paths": {
-      // 路径映射，与 baseUrl 关联
-      "@src/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@utils/*": ["src/utils/*"]
+      "@/*": ["app/*"],
+      "@router/*": ["app/renderer/router/*"],
+      "@root/*": ["*"]
     },
 
     // 实验性选项
@@ -31,6 +30,6 @@
     "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入
     "noEmit": true // 只想使用tsc的类型检查作为函数时（当其他工具（例如Babel实际编译）时）使用它
   },
-  "exclude": ["node_modules"],
-  "include": ["scripts", "src", "types"]
+  "include": ["types", "app/**/*.ts", "app/**/*.tsx"],
+  "exclude": ["node_modules", "build", "dist", "release", "public"]
 }

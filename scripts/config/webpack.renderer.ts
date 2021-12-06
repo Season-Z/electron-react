@@ -55,14 +55,6 @@ const rendererConfig = {
     path: resolve(DIST_PATH, './renderer')
   },
   target: 'electron-renderer',
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.json'],
-    alias: {
-      '@src': resolve(PROJECT_PATH, './src'),
-      components: resolve(PROJECT_PATH, './src/components'),
-      '@utils': resolve(PROJECT_PATH, './src/utils')
-    }
-  },
   devtool: 'eval-source-map',
   stats: 'errors-only', // 终端仅打印 error
   module: {

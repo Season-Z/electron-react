@@ -6,9 +6,9 @@ export default {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json'],
     alias: {
-      '@src': resolve(PROJECT_PATH, './src'),
-      components: resolve(PROJECT_PATH, './src/components'),
-      '@utils': resolve(PROJECT_PATH, './src/utils')
+      '@': resolve(PROJECT_PATH, './app'),
+      '@root': resolve(PROJECT_PATH, './app/renderer/router'),
+      '@router': resolve(PROJECT_PATH, './src/components')
     }
   }
 }
