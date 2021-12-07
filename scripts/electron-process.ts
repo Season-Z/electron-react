@@ -73,7 +73,7 @@ export default class ElectronProcess {
    * @param callBack
    * @param t
    */
-  debounce(callBack: () => void, t: number): void {
+  private debounce(callBack: () => void, t: number): void {
     this.TM = Date.now()
     setTimeout(() => {
       if (Date.now() - this.TM >= t) {

@@ -24,6 +24,7 @@ const electronProcess = new ElectronProcess()
 function startMainServer() {
   return new Promise((resolve) => {
     webpackConfigMain.devtool = 'source-map'
+    webpackConfigMain.mode = 'development'
     webpackConfigMain.watch = true
     webpackConfigMain.watchOptions = {
       ignored: ['**/*.tsx', '**/*.jsx', '**/*.less', '**/*.css']
@@ -45,6 +46,9 @@ function startMainServer() {
 // 渲染进程
 function startRendererServer() {
   return new Promise(async (resolve, reject) => {
+    process.env.port = serverConfig.port as string
+    process.env.host = serverConfig.host
+
     const compiler = webpack(webpackDevConfig as any)
     // @ts-ignore
     const server = new WebpackDevServer(serverConfig, compiler)

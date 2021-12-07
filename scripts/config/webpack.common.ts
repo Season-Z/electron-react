@@ -3,6 +3,10 @@ import { PROJECT_PATH } from './config'
 
 export default {
   mode: process.env.NODE_ENV,
+  node: {
+    __dirname: false,
+    __filename: false
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json'],
     alias: {

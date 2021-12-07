@@ -2,9 +2,11 @@
   "name": "electron-react",
   "version": "1.0.0",
   "description": "electron webpack5 react typescript",
+  "appId": "npm_package_appId",
   "main": "dist/main/main.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development ts-node -P scripts/tsconfig.json scripts/start.ts"
+    "start": "cross-env NODE_ENV=development ts-node -P scripts/tsconfig.json scripts/start.ts",
+    "build": "cross-env NODE_ENV=production ts-node -P scripts/tsconfig.json scripts/build.ts"
   },
   "repository": "https://github.com/Season-Z/electron-react",
   "keywords": [
@@ -12,6 +14,20 @@
     "react",
     "typescript"
   ],
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "cross-env NODE_ENV=development eslint --cache"
+    ],
+    "*.json,.{eslintrc,prettierrc}": [
+      "prettier --ignore-path .eslintignore --parser json --write"
+    ],
+    "*.{css,scss}": [
+      "prettier --ignore-path .eslintignore --single-quote --write"
+    ],
+    "*.{html,md,yml}": [
+      "prettier --ignore-path .eslintignore --single-quote --write"
+    ]
+  },
   "author": "season",
   "devDependencies": {
     "@babel/core": "^7.15.5",
@@ -44,6 +60,8 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.3.0",
     "css-minimizer-webpack-plugin": "^3.0.2",
+    "electron": "^16.0.2",
+    "electron-builder": "^22.14.5",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -90,7 +108,6 @@
   },
   "dependencies": {
     "antd": "^4.17.2",
-    "electron": "^16.0.2",
     "react-router-dom": "^6.0.2"
   }
 }

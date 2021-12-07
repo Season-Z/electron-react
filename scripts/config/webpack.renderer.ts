@@ -119,6 +119,7 @@ const rendererConfig = {
     new HtmlWebpackPlugin({
       template: resolve(PROJECT_PATH, './public/index.html'),
       filename: 'index.html',
+      title: 'electron-base',
       cache: false,
       minify: isDev
         ? false

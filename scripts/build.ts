@@ -1,9 +1,22 @@
-import webpack from 'webpack'
-import webpackCig from './config/webpack.main'
+import webpack, { Configuration } from 'webpack'
+import { build as electronBuilder } from 'electron-builder'
+import chalk from 'chalk'
+import webpackConfigMain from './config/webpack.main'
+import webpackConfigRenderer from './config/webpack.renderer'
+import electronBuildConfig from './config/electron-build.config'
+import { appLog, clearDir } from './utils'
+import { DIST_PATH } from './config/config'
 
-function build() {
+interface BuildConfigProps {
+  config: Configuration
+}
+
+// 打包配置
+function buildConfig(props: BuildConfigProps) {
+  const { config } = props
+
   return new Promise((resolve, reject) => {
-    webpack(webpackCig, (err, stats) => {
+    webpack(config, (err, stats) => {
       if (err) throw err
       if (!stats) throw 'Webpack states error!'
 
@@ -29,4 +42,76 @@ function build() {
   })
 }
 
-build()
+// 主进程打包
+function buildMain() {
+  return buildConfig({ config: webpackConfigMain }).then(() => {
+    appLog.success('主进程打包完毕')
+  })
+}
+
+// 渲染进程打包
+function buildRenderer() {
+  const config = {
+    ...webpackConfigRenderer,
+    devtool: false as any
+  }
+  return buildConfig({ config }).then(() => {
+    appLog.success('渲染进程打包完毕')
+  })
+}
+
+function buildApp() {
+  appLog.info(chalk.cyanBright(`[Clear Dir...] : ${chalk.magenta.underline(DIST_PATH)}`))
+
+  try {
+    clearDir(DIST_PATH, false, true)
+  } catch (error) {
+    appLog.warn(error.message)
+  }
+
+  const { NODE_ENV, npm_package_version, npm_package_name } = process.env
+
+  appLog.info(
+    `[Building...] : ${chalk.cyan(`${npm_package_name}@v${npm_package_version} in ${NODE_ENV}`)}`
+  )
+
+  // buildRenderer()
+  //   .then(() => buildMain())
+  //   .then(() => electronBuilder(electronBuildConfig))
+  //   .then((res) => {
+  //     appLog.success(`[Released] : ${res}`)
+  //   })
+  //   .catch((err) => {
+  //     appLog.error(err)
+  //   })
+  //   .finally(() => {
+  //     process.exit()
+  //   })
+
+  Promise.allSettled([buildMain(), buildRenderer()])
+    .then((res) => {
+      const [main, renderer] = res
+      if (main.status === 'rejected') {
+        return Promise.reject(main.reason)
+      }
+      if (renderer.status === 'rejected') {
+        return Promise.reject(renderer.reason)
+      }
+
+      return electronBuilder(electronBuildConfig)
+        .then((res) => {
+          appLog.success(`[Released] : ${res}`)
+        })
+        .catch((err) => {
+          appLog.error(err)
+        })
+        .finally(() => {
+          process.exit()
+        })
+    })
+    .catch((reason) => {
+      appLog.error(reason)
+    })
+}
+
+buildApp()

@@ -1,4 +1,16 @@
 import { app, BrowserWindow } from 'electron'
+import path from 'path'
+import { PROJECT_PATH } from '../../scripts/config/config'
+const { NODE_ENV, port, host } = process.env
+
+// 获取窗口的url
+function getWinUrl() {
+  if (NODE_ENV === 'development') {
+    return `http://${host}:${port}`
+  } else {
+    return `file://${path.join(PROJECT_PATH, './dist/renderer/index.html')}`
+  }
+}
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -6,13 +18,14 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      webSecurity: false
     }
   })
 
-  mainWindow.loadURL('http://127.0.0.1:7001')
-
-  // mainWindow.webContents.openDevTools()
+  const url = getWinUrl()
+  mainWindow.loadURL(url)
+  mainWindow.webContents.openDevTools()
 }
 
 app.whenReady().then(() => {

@@ -5,7 +5,7 @@ export const PROJECT_NAME = parse(PROJECT_PATH).name
 
 export const isDev = process.env.NODE_ENV === 'development'
 
-export const SERVER_HOST = 'localhost'
+export const SERVER_HOST = '127.0.0.1'
 export const SERVER_PORT: number = 7001
 
 // 是否开启 modules 缓存

@@ -19,7 +19,6 @@ export default merge(
       chunkFilename: '[name].js'
     },
 
-    devtool: false,
     module: {
       rules: [
         {
