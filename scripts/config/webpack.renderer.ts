@@ -8,6 +8,7 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
+import postFlexFix from 'postcss-flexbugs-fixes'
 // @ts-ignore
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import commonConfig from './webpack.common'
@@ -30,7 +31,7 @@ const getCssLoaders = (importLoaders: number) => [
         ident: 'postcss',
         plugins: [
           // 修复一些和 flex 布局相关的 bug
-          require('postcss-flexbugs-fixes'),
+          postFlexFix,
           require('postcss-preset-env')({
             autoprefixer: {
               grid: true,

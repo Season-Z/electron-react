@@ -2,10 +2,11 @@ import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import chalk from 'chalk'
 import webpackConfigMain from './config/webpack.main'
-import webpackDevConfig from './config/webpack.renderer'
+import webpackConfigRenderer from './config/webpack.renderer'
 import ElectronProcess from './electron-process'
 import { SERVER_HOST, SERVER_PORT } from './config/config'
 import proxySetting from './config/proxy'
+import { appLog } from './utils'
 
 const serverConfig: WebpackDevServer.Configuration = {
   host: SERVER_HOST,
@@ -44,17 +45,23 @@ function startMainServer() {
 }
 
 // 渲染进程
-function startRendererServer() {
+function startRendererServer(runInBrowser: boolean) {
   return new Promise(async (resolve, reject) => {
     process.env.port = serverConfig.port as string
     process.env.host = serverConfig.host
 
-    const compiler = webpack(webpackDevConfig as any)
+    if (runInBrowser) {
+      webpackConfigRenderer.target = 'web'
+      serverConfig.open = true
+    }
+
+    const compiler = webpack(webpackConfigRenderer as any)
     // @ts-ignore
     const server = new WebpackDevServer(serverConfig, compiler)
 
     try {
       await server.start()
+      appLog.success('[Renderer] : renderer process has complated')
       resolve(undefined)
     } catch (error) {
       console.log(chalk.red(error))
@@ -64,7 +71,23 @@ function startRendererServer() {
 }
 
 function startApp() {
-  Promise.allSettled([startMainServer(), startRendererServer()])
+  const runInBrowser = process.argv.some((v) => v.includes('web'))
+  if (runInBrowser) {
+    startRendererServer(runInBrowser)
+  } else {
+    Promise.allSettled([startMainServer(), startRendererServer(runInBrowser)]).then((res) => {
+      const [main, renderer] = res
+
+      if (main.status === 'rejected') {
+        return Promise.reject(main.reason)
+      }
+      if (renderer.status === 'rejected') {
+        return Promise.reject(renderer.reason)
+      }
+
+      appLog.success(chalk.cyanBright('App has started！'))
+    })
+  }
 }
 
 startApp()

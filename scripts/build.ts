@@ -45,18 +45,23 @@ function buildConfig(props: BuildConfigProps) {
 // 主进程打包
 function buildMain() {
   return buildConfig({ config: webpackConfigMain }).then(() => {
-    appLog.success('主进程打包完毕')
+    appLog.success('[Main] : Main has build completed !')
   })
 }
 
 // 渲染进程打包
-function buildRenderer() {
-  const config = {
+function buildRenderer(buildWeb: boolean) {
+  let config = {
     ...webpackConfigRenderer,
     devtool: false as any
   }
+
+  if (buildWeb) {
+    // config.plugins = config.plugins.concat()
+  }
+
   return buildConfig({ config }).then(() => {
-    appLog.success('渲染进程打包完毕')
+    appLog.success('[Renderer] : Renderer has build completed !')
   })
 }
 
@@ -75,43 +80,36 @@ function buildApp() {
     `[Building...] : ${chalk.cyan(`${npm_package_name}@v${npm_package_version} in ${NODE_ENV}`)}`
   )
 
-  // buildRenderer()
-  //   .then(() => buildMain())
-  //   .then(() => electronBuilder(electronBuildConfig))
-  //   .then((res) => {
-  //     appLog.success(`[Released] : ${res}`)
-  //   })
-  //   .catch((err) => {
-  //     appLog.error(err)
-  //   })
-  //   .finally(() => {
-  //     process.exit()
-  //   })
+  const buildWeb = process.argv.some((v) => v.includes('web'))
 
-  Promise.allSettled([buildMain(), buildRenderer()])
-    .then((res) => {
-      const [main, renderer] = res
-      if (main.status === 'rejected') {
-        return Promise.reject(main.reason)
-      }
-      if (renderer.status === 'rejected') {
-        return Promise.reject(renderer.reason)
-      }
+  if (buildWeb) {
+    buildRenderer(buildWeb)
+  } else {
+    Promise.allSettled([buildMain(), buildRenderer(buildWeb)])
+      .then((res) => {
+        const [main, renderer] = res
+        if (main.status === 'rejected') {
+          return Promise.reject(main.reason)
+        }
+        if (renderer.status === 'rejected') {
+          return Promise.reject(renderer.reason)
+        }
 
-      return electronBuilder(electronBuildConfig)
-        .then((res) => {
-          appLog.success(`[Released] : ${res}`)
-        })
-        .catch((err) => {
-          appLog.error(err)
-        })
-        .finally(() => {
-          process.exit()
-        })
-    })
-    .catch((reason) => {
-      appLog.error(reason)
-    })
+        return electronBuilder(electronBuildConfig)
+          .then((res) => {
+            appLog.success(`[Released] : ${res}`)
+          })
+          .catch((err) => {
+            appLog.error(err)
+          })
+          .finally(() => {
+            process.exit()
+          })
+      })
+      .catch((reason) => {
+        appLog.error(reason)
+      })
+  }
 }
 
 buildApp()

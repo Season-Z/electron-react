@@ -6,7 +6,9 @@
   "main": "dist/main/main.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development ts-node -P scripts/tsconfig.json scripts/start.ts",
-    "build": "cross-env NODE_ENV=production ts-node -P scripts/tsconfig.json scripts/build.ts"
+    "start:web": "cross-env NODE_ENV=development ts-node -P scripts/tsconfig.json scripts/start.ts -web",
+    "build": "cross-env NODE_ENV=production ts-node -P scripts/tsconfig.json scripts/build.ts",
+    "build:web": "cross-env NODE_ENV=production ts-node -P scripts/tsconfig.json scripts/build.ts -web"
   },
   "repository": "https://github.com/Season-Z/electron-react",
   "keywords": [
@@ -34,6 +36,7 @@
     }
   },
   "author": "season",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/plugin-transform-runtime": "^7.15.0",
@@ -91,7 +94,6 @@
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.4.1",
-    "purgecss-webpack-plugin": "^4.0.3",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.3.0",
     "stylelint": "^13.13.1",

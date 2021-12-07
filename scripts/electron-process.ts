@@ -45,7 +45,7 @@ export default class ElectronProcess {
     this.process = spawn(electron, ['.'])
     this.restarting = false
     if (this.process) {
-      appLog.success(`Electron main process has ${this.isRestart ? 'restarted' : 'started'}.`)
+      appLog.success(`[Electron] : main process has ${this.isRestart ? 'restarted' : 'started'}.`)
 
       this.process.stdout.on('data', (data) => {
         let message: string = data.toString()
