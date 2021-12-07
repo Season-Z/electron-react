@@ -28,6 +28,11 @@
       "prettier --ignore-path .eslintignore --single-quote --write"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "author": "season",
   "devDependencies": {
     "@babel/core": "^7.15.5",
