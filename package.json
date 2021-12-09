@@ -2,7 +2,7 @@
   "name": "electron-react",
   "version": "1.0.0",
   "description": "electron webpack5 react typescript",
-  "appId": "npm_package_appId",
+  "appId": "electron-react_appId",
   "main": "dist/main/main.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development ts-node -P scripts/tsconfig.json scripts/start.ts",
@@ -114,7 +114,6 @@
     "webpackbar": "^4.0.0"
   },
   "dependencies": {
-    "antd": "^4.17.2",
     "react-router-dom": "^6.0.2"
   }
 }

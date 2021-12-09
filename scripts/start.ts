@@ -88,6 +88,12 @@ function startApp() {
       appLog.success(chalk.cyanBright('App has started！'))
     })
   }
+
+  ["SIGINT", "SIGTERM"].forEach(function (sig) {
+    process.on(sig, function () {
+      process.exit();
+    });
+  });
 }
 
 startApp()

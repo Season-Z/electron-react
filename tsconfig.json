@@ -18,7 +18,10 @@
     "paths": {
       "@/*": ["app/*"],
       "@router/*": ["app/renderer/router/*"],
-      "@root/*": ["*"]
+      "@views/*": ["app/renderer/views/*"],
+      "@components/*": ["app/renderer/components/*"],
+      "@config/*": ["app/renderer/config/*"],
+      "@utils/*": ["app/renderer/utils/*"],
     },
 
     // 实验性选项

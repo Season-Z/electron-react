@@ -10,9 +10,12 @@ export default {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json'],
     alias: {
-      '@': resolve(PROJECT_PATH, './app'),
-      '@root': resolve(PROJECT_PATH, './app/renderer/router'),
-      '@router': resolve(PROJECT_PATH, './src/components')
+      '@/': resolve(PROJECT_PATH, './app'),
+      '@router': resolve(PROJECT_PATH, './app/renderer/router'),
+      '@components': resolve(PROJECT_PATH, './src/components'),
+      '@views': resolve(PROJECT_PATH, './src/views'),
+      '@config': resolve(PROJECT_PATH, './src/config'),
+      '@utils': resolve(PROJECT_PATH, './src/utils'),
     }
   }
 }

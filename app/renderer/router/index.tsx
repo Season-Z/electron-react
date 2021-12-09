@@ -1,8 +1,8 @@
 import React from 'react'
 import { useRoutes } from 'react-router'
-import Main from '../views/main'
-import Contact from '../views/contact'
-import NotFound from '../views/notFound'
+import Main from '@views/main'
+import Contact from '@views/contact'
+import NotFound from '@views/notFound'
 
 function AppRoutes() {
   const element = useRoutes([
