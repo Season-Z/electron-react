@@ -25,14 +25,15 @@ function createWindow() {
     }
   })
 
-  // const url = getWinUrl()
-  // mainWindow.webContents.loadFile(url)
+  const url = getWinUrl()
+  mainWindow.loadURL(url)
+  mainWindow.webContents.openDevTools()
   // mainWindow.webContents.openDevTools()
-  mainWindow.loadFile(url.format({
-    pathname: path.join(PROJECT_PATH, './dist/renderer/index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
+  // mainWindow.loadFile(url.format({
+  //   pathname: path.join(PROJECT_PATH, './dist/renderer/index.html'),
+  //   protocol: 'file:',
+  //   slashes: true
+  // }));
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
