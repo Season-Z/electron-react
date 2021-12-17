@@ -12,10 +12,10 @@ export default {
     alias: {
       '@/': resolve(PROJECT_PATH, './app'),
       '@router': resolve(PROJECT_PATH, './app/renderer/router'),
-      '@components': resolve(PROJECT_PATH, './src/components'),
-      '@views': resolve(PROJECT_PATH, './src/views'),
-      '@config': resolve(PROJECT_PATH, './src/config'),
-      '@utils': resolve(PROJECT_PATH, './src/utils'),
+      '@components': resolve(PROJECT_PATH, './app/renderer/components'),
+      '@views': resolve(PROJECT_PATH, './app/renderer/views'),
+      '@config': resolve(PROJECT_PATH, './app/renderer/config'),
+      '@utils': resolve(PROJECT_PATH, './app/renderer/utils'),
     }
   }
 }

@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 import path from 'path'
+import url from 'url'
 import { PROJECT_PATH } from '../../scripts/config/config'
 const { NODE_ENV, port, host } = process.env
 
@@ -16,6 +17,7 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    show: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -23,9 +25,18 @@ function createWindow() {
     }
   })
 
-  const url = getWinUrl()
-  mainWindow.loadURL(url)
-  mainWindow.webContents.openDevTools()
+  // const url = getWinUrl()
+  // mainWindow.webContents.loadFile(url)
+  // mainWindow.webContents.openDevTools()
+  mainWindow.loadFile(url.format({
+    pathname: path.join(PROJECT_PATH, './dist/renderer/index.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+  })
 }
 
 app.whenReady().then(() => {
