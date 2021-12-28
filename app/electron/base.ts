@@ -1,2 +1,4 @@
+import windowMap from '@config/windowMap'
+
 /** 窗口的键 */
-export const BrowserWindowKey: string[] = []
+export const BrowserWindowKey = [...windowMap.keys()]

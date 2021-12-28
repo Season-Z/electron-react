@@ -3,7 +3,9 @@ import { RouteObject } from 'react-router-dom'
 import { BrowserWindowKey } from '@/electron/base'
 
 declare global {
-  type WindowKey = keyof typeof BrowserWindowKey
+  type UnionType<T> = T extends (infer P)[] ? P : never;
+
+  type WindowKey = BrowserWindowKey[number]
   /**
    * 新窗口启动参数
    */
@@ -28,19 +30,16 @@ declare global {
     created?: (win: BrowserWindow) => void
   }
 
-  /** 自定义路由参数 */
-  interface RouteParams {
+  /** 窗口配置 */
+  interface WindowConfig extends RouteObject {
+    /** 页面资源 key */
+    key: string
     /** 自定义参数, 视情况而定 */
     type?: string
+    redirect?: object
     /** 以 createWindow 打开时, 加载的 BrowserWindow 选项 */
     windowOptions?: BrowserWindowConstructorOptions
     /** 新窗口启动参数 */
-    createConfig?: CreateConfig
-  }
-
-  /** 路由配置规范 */
-  interface RouteConfig extends RouteObject, RouteParams {
-    /** 页面资源 key */
-    key: WindowKey
+    createConfig?: CreateWindowConfig
   }
 }

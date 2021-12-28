@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import path from 'path'
-import url from 'url'
 import { PROJECT_PATH } from '../../scripts/config/config'
+
 const { NODE_ENV, port, host } = process.env
 
 // 获取窗口的url

@@ -16,7 +16,7 @@ const routers: RouteObject[] = [
   //   ]
   // },
   // 404找不到
-  { path: '*', element: <NotFound /> }
+  // { path: '*', element: <NotFound /> }
 ]
 
 export default routers
