@@ -1,11 +1,14 @@
 import webpack, { Configuration } from 'webpack'
 import { build as electronBuilder } from 'electron-builder'
 import chalk from 'chalk'
+import dotenv from 'dotenv'
 import webpackConfigMain from './config/webpack.main'
 import webpackConfigRenderer from './config/webpack.renderer'
 import electronBuildConfig from './config/electron-build.config'
 import { appLog, clearDir } from './utils'
 import { DIST_PATH } from './config/config'
+
+dotenv.config()
 
 interface BuildConfigProps {
   config: Configuration
@@ -80,7 +83,7 @@ function buildApp() {
     `[Building...] : ${chalk.cyan(`${npm_package_name}@v${npm_package_version} in ${NODE_ENV}`)}`
   )
 
-  const buildWeb = process.argv.some((v) => v.includes('web'))
+  const buildWeb = process.argv.some((v) => v.includes('-web'))
 
   if (buildWeb) {
     buildRenderer(buildWeb)

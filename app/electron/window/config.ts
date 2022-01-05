@@ -28,24 +28,22 @@ export const APP_TITLE = 'Electron React'
 /** 创建新窗口时默认加载的选项 */
 export const DEFAULT_WINDOW_OPTIONS: BrowserWindowConstructorOptions = {
   // icon: APP_ICON,
-  minWidth: 200,
-  minHeight: 200,
+  minWidth: 400,
+  minHeight: 300,
   width: 800,
   height: 600,
   show: false,
-  hasShadow: true,
   webPreferences: {
     contextIsolation: false,
     nodeIntegration: true,
     scrollBounce: true
     // enableRemoteModule: true
   },
-  titleBarStyle: 'hidden', // 隐藏标题栏, 但显示窗口控制按钮
+  titleBarStyle: 'hidden',
   frame: false // 无边框窗口
   // skipTaskbar: false, // 是否在任务栏中隐藏窗口
   // backgroundColor: '#fff',
   // transparent: true, // 窗口是否透明
-  // titleBarStyle: 'hidden',
   // vibrancy: 'fullscreen-ui', // 毛玻璃效果
 }
 

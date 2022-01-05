@@ -1,53 +1,29 @@
-import { app, BrowserWindow } from 'electron'
-import path from 'path'
-import { PROJECT_PATH } from '../../scripts/config/config'
+import { app } from 'electron'
+import { createWindow } from './window/create-window'
 
-const { NODE_ENV, port, host } = process.env
+const appLock = app.requestSingleInstanceLock()
 
-// 获取窗口的url
-function getWinUrl() {
-  if (NODE_ENV === 'development') {
-    return `http://${host}:${port}`
-  } else {
-    return `file://${path.join(PROJECT_PATH, './dist/renderer/index.html')}`
-  }
+if (!appLock) {
+  // 作为第二个实例运行时, 主动结束进程
+  app.quit()
 }
 
-function createWindow() {
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    show: false,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      webSecurity: false
-    }
-  })
-
-  const url = getWinUrl()
-  mainWindow.loadURL(url)
-  mainWindow.webContents.openDevTools()
-  // mainWindow.webContents.openDevTools()
-  // mainWindow.loadFile(url.format({
-  //   pathname: path.join(PROJECT_PATH, './dist/renderer/index.html'),
-  //   protocol: 'file:',
-  //   slashes: true
-  // }));
-
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show()
-  })
-}
-
-app.whenReady().then(() => {
-  createWindow()
-
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
+app.on('second-instance', (event, commandLine, workingDirectory) => {
+  // 当运行第二个实例时,将会聚焦到myWindow这个窗口
+  // if (myWindow) {
+  //   if (myWindow.isMinimized()) myWindow.restore()
+  //   myWindow.focus()
+  // }
+  createWindow('Home')
 })
 
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit()
+app.on('ready', () => {
+  // tray = creatAppTray()
+  createWindow('Home')
+})
+
+app.on('activate', () => {
+  if (process.platform == 'darwin') {
+    createWindow('Home')
+  }
 })

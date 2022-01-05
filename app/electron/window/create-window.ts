@@ -4,7 +4,7 @@ import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 import windowMap from '@config/windowMap'
 import { DEFAULT_CREATE_CONFIG, DEFAULT_WINDOW_OPTIONS } from './config'
 
-const { NODE_ENV, port, host } = process.env
+const { NODE_ENV, HOST, PORT } = process.env
 
 /** 创建新窗口相关选项 */
 export interface CreateWindowOptions {
@@ -42,9 +42,9 @@ export function getWindowUrl(key: WindowKey, options: CreateWindowOptions = {}):
   //   return `file://${path.join(__dirname, '../renderer/index.html')}#${routePath}${query}`
   // }
   if (NODE_ENV === 'development') {
-    return `http://${host}:${port}#${routePath}`
+    return `http://${HOST}:${PORT}#${routePath}`
   } else {
-    return `file://${path.join(__dirname, '../renderer/index.html')}#${routePath}`
+    return `file://${path.join(__dirname, '../renderer/index.html')}`
   }
 }
 
@@ -104,9 +104,11 @@ export function createWindow(
         if (createConfig.delayToShow) {
           setTimeout(() => {
             win.show()
+            win.webContents.openDevTools()
           }, createConfig.delayToShow)
         } else {
           win.show()
+          win.webContents.openDevTools()
         }
       }
       resolve(win)

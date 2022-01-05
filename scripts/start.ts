@@ -1,16 +1,20 @@
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import chalk from 'chalk'
+import dotenv from 'dotenv'
 import webpackConfigMain from './config/webpack.main'
 import webpackConfigRenderer from './config/webpack.renderer'
 import ElectronProcess from './electron-process'
-import { SERVER_HOST, SERVER_PORT } from './config/config'
 import proxySetting from './config/proxy'
 import { appLog } from './utils'
 
+dotenv.config()
+
+const { HOST, PORT } = process.env
+
 const serverConfig: WebpackDevServer.Configuration = {
-  host: SERVER_HOST,
-  port: SERVER_PORT, // 默认是8080
+  host: HOST,
+  port: PORT, // 默认是8080
   // clientLogLevel: 'silent', // 日志等级
   compress: true, // 是否启用 gzip 压缩
   // open: true, // 打开默认浏览器
@@ -47,9 +51,6 @@ function startMainServer() {
 // 渲染进程
 function startRendererServer(runInBrowser: boolean) {
   return new Promise(async (resolve, reject) => {
-    process.env.port = serverConfig.port as string
-    process.env.host = serverConfig.host
-
     if (runInBrowser) {
       webpackConfigRenderer.target = 'web'
       serverConfig.open = true
@@ -71,7 +72,7 @@ function startRendererServer(runInBrowser: boolean) {
 }
 
 function startApp() {
-  const runInBrowser = process.argv.some((v) => v.includes('web'))
+  const runInBrowser = process.argv.some((v) => v.includes('-web'))
   if (runInBrowser) {
     startRendererServer(runInBrowser)
   } else {

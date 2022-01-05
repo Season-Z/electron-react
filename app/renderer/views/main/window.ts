@@ -3,7 +3,7 @@ const window: WindowConfig = {
   path: '/',
   redirect: { to: '/demo?form=home' },
   windowOptions: {
-    title: 'Main',
+    title: 'Home',
     width: 1200,
     height: 800,
     minWidth: 800,
