@@ -33,18 +33,16 @@ export const DEFAULT_WINDOW_OPTIONS: BrowserWindowConstructorOptions = {
   width: 800,
   height: 600,
   show: false,
+  vibrancy: 'dark', // 'light', 'medium-light' etc
+  visualEffectState: 'active', // 这个参数不加的话，鼠标离开应用程序其背景就会变成白色
   webPreferences: {
-    contextIsolation: false,
     nodeIntegration: true,
+    contextIsolation: false,
+    webSecurity: false,
     scrollBounce: true
-    // enableRemoteModule: true
-  },
-  titleBarStyle: 'hidden',
-  frame: false // 无边框窗口
+  }
   // skipTaskbar: false, // 是否在任务栏中隐藏窗口
   // backgroundColor: '#fff',
-  // transparent: true, // 窗口是否透明
-  // vibrancy: 'fullscreen-ui', // 毛玻璃效果
 }
 
 /** 创建的基本配置信息 */

@@ -3,7 +3,7 @@ import { RouteObject } from 'react-router-dom'
 import { BrowserWindowKey } from '@/electron/base'
 
 declare global {
-  type UnionType<T> = T extends (infer P)[] ? P : never;
+  type UnionType<T> = T extends (infer P)[] ? P : never
 
   type WindowKey = BrowserWindowKey[number]
   /**
@@ -14,8 +14,6 @@ declare global {
     showTitlebar?: boolean
     /** 显示侧边栏 默认 false */
     showSidebar?: boolean
-    /** 以新窗口打开时是否启动 DevTools */
-    openDevTools?: boolean
     /** 记住窗口关闭时的位置和尺寸, 窗口打开时自动加载 */
     saveWindowBounds?: boolean
     /** 延迟执行 win.show() 单位：ms 默认：10 (适当的延迟避免 DOM 渲染完成前白屏或闪烁) */

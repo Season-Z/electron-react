@@ -104,18 +104,16 @@ export function createWindow(
         if (createConfig.delayToShow) {
           setTimeout(() => {
             win.show()
-            win.webContents.openDevTools()
           }, createConfig.delayToShow)
         } else {
           win.show()
-          win.webContents.openDevTools()
         }
       }
       resolve(win)
     })
 
     win.once('ready-to-show', () => {
-      if (createConfig.openDevTools) win.webContents.openDevTools()
+      win.webContents.openDevTools()
     })
 
     win.once('show', () => {
