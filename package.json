@@ -116,6 +116,6 @@
     "webpackbar": "^4.0.0"
   },
   "dependencies": {
-    "react-router-dom": "^6.0.2"
+    "react-router-dom": "^6.21.2"
   }
 }
